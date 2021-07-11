@@ -5,8 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(images/doodles.png);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+            flex-wrap: wrap;
+        }
+        .item {
+            height: 120px;
+            width: 200px;
+            margin: 20px;
+            padding: 10px 10px;
+            border: 1px solid white;
+            border-radius: 10px;
+            box-sizing: border-box;
+            background-color: honeydew;
+            box-shadow: 4px 4px 10px #888888;
+            display: table;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #262626;
+            font-weight: 500;
+            font-size: 1.2em;
+        }
+        .item:hover {
+            display: hidden;
+            box-shadow: 6px 6px 10px #888888;
+
+        }
+        .content {
+            padding: 20px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="item" onclick="window.open('./BoxShasowLoader.html')">
+            <span class="content">
+                波浪阴影加载器
+            </span>
+        </div>
+        <div class="item" onclick="window.open('./HorizontalAndVerticalCenter.html')">
+            <span class="content">
+                垂直和水平均居中的文本
+            </span>
+        </div>
+        <div class="item" onclick="window.open('./OldFashionedFilmCountdownTimer.html')">
+            <span class="content">
+                老电影风格倒计时
+            </span>
+        </div>
+        <div class="item" onclick="window.open('./TransparentCharacters.html')">
+            <span class="content">
+                透明文本效果
+            </span>
+        </div>
+        <div class="item" onclick="window.open('./TypingEffect.html')">
+            <span class="content">
+                打字机效果
+            </span>
+        </div>
+        
+    </div>
 </body>
 </html>

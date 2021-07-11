@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打字机效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* box-sizing属性 有content-box和border-box两个，
+            前一个，元素宽度将会加上内外边距，后一个，内外边距将包含在设定的宽度中*/
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        main {
+            display: flex;
+            background: #2f3542;
+            align-items: center;
+            justify-content: center;
+            /* vh和vw是视口单位(Viewport units)
+            视口单位，在桌面端就是指浏览器的可视区域
+            在移动端就是指的是Viewport中的Layout Viewport
+            vw: 1vw = 视口宽度的1% 
+            vh: 1vh = 视口高度的1%*/
+            height: 100vh;
+        }
+        h1 {
+            color: white;
+            font-size: 5em;
+            font-weight: 300;
+        }
+        span.mark {
+            border-right: 2px solid white;
+            animation: blink 0.6s step-end infinite;
+        }
+        @keyframes blink {
+            from,
+            to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>
+            <span id="text" data-text='["好好生活","不要浪费人生","对得起自己和别人"]'></span>
+            <span class="mark"></span>
+        </h1>
+    </main>
+    <script>
+        const textEl = document.querySelector("#text");
+        // JSON.parse()方法将数据转换成JavaScript对象
+        const texts = JSON.parse(textEl.getAttribute("data-text"));
+
+        // 当前显示文本数组中的第几个
+        let index = 0;
+        // 当前显示第几个字
+        let charIndex = 0;
+        // 每个字显示间隔默认是500毫秒
+        let delta = 500;
+
+        // 记录动画执行开始时间
+        let start = null;
+        // 是否为删除动画
+        let isDeleting = false;
+
+        // 动画回调函数
+        function type(time) {
+            window.requestAnimationFrame(type);
+            if (!start) start = time;
+            let progress = time - start;
+
+            if (progress > delta) {
+                let text = texts[index];
+                if (!isDeleting) {
+                    textEl.innerHTML = text.slice(0, ++charIndex);
+                    delta = 500 - Math.random() * 400;
+                } else {
+                    textEl.innerHTML = text.slice(0, charIndex--);
+                }
+
+                start = time;
+                
+                if (charIndex === text.length) {
+                    isDeleting = true;
+                    delta = 200;
+                    start = time + 1200;
+                }
+
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    start = time + 200;
+                    index = ++index % texts.length;
+                }
+            }
+        }
+
+        window.requestAnimationFrame(type);
+    </script>
+</body>
+</html>
